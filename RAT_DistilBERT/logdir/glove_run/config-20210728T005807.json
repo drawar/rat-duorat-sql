@@ -1,0 +1,121 @@
+{
+    "data": {
+        "test": {
+            "db_path": "data/wikisql/test.db",
+            "name": "wikisql",
+            "paths": [
+                "data/wikisql/test.jsonl"
+            ],
+            "tables_paths": [
+                "data/wikisql/test.tables.jsonl"
+            ]
+        },
+        "train": {
+            "db_path": "data/wikisql/train.db",
+            "name": "wikisql",
+            "paths": [
+                "data/wikisql/train.jsonl"
+            ],
+            "tables_paths": [
+                "data/wikisql/train.tables.jsonl"
+            ]
+        },
+        "val": {
+            "db_path": "data/wikisql/dev.db",
+            "name": "wikisql",
+            "paths": [
+                "data/wikisql/dev.jsonl"
+            ],
+            "tables_paths": [
+                "data/wikisql/dev.tables.jsonl"
+            ]
+        }
+    },
+    "lr_scheduler": {
+        "decay_steps": 9500,
+        "end_lr": 0,
+        "name": "warmup_polynomial",
+        "num_warmup_steps": 500,
+        "power": 0.5,
+        "start_lr": 0.000743552663260837
+    },
+    "model": {
+        "decoder": {
+            "desc_attn": "mha",
+            "dropout": 0.20687225956012834,
+            "loss_type": "softmax",
+            "name": "NL2Code",
+            "recurrent_size": 512,
+            "use_align_loss": false,
+            "use_align_mat": true
+        },
+        "decoder_preproc": {
+            "grammar": {
+                "name": "wikisql"
+            },
+            "max_count": 50,
+            "min_freq": 4,
+            "save_path": "data/wikisql/nl2code-wikisql/",
+            "use_seq_elem_rules": true
+        },
+        "encoder": {
+            "batch_encs_update": false,
+            "column_encoder": [
+                "emb",
+                "bilstm-summarize"
+            ],
+            "dropout": 0.2,
+            "name": "spiderv2",
+            "question_encoder": [
+                "emb",
+                "bilstm"
+            ],
+            "table_encoder": [
+                "emb",
+                "bilstm-summarize"
+            ],
+            "top_k_learnable": 50,
+            "update_config": {
+                "name": "relational_transformer",
+                "num_heads": 8,
+                "num_layers": 8,
+                "sc_link": true
+            },
+            "word_emb_size": 300
+        },
+        "encoder_preproc": {
+            "count_tokens_in_word_emb_for_vocab": true,
+            "fix_issue_16_primary_keys": true,
+            "include_table_name_in_column": false,
+            "max_count": 50,
+            "min_freq": 4,
+            "save_path": "data/wikisql/nl2code-wikisql/",
+            "word_emb": {
+                "kind": "42B",
+                "lemmatize": true,
+                "name": "glove"
+            }
+        },
+        "log": {
+            "reopen_to_flush": true
+        },
+        "name": "EncDec"
+    },
+    "optimizer": {
+        "lr": 0,
+        "name": "adam"
+    },
+    "train": {
+        "batch_size": 20,
+        "data_seed": 0,
+        "eval_batch_size": 50,
+        "eval_every_n": 50,
+        "init_seed": 0,
+        "keep_every_n": 10000,
+        "max_steps": 10000,
+        "model_seed": 0,
+        "num_eval_items": 50,
+        "report_every_n": 10,
+        "save_every_n": 100
+    }
+}

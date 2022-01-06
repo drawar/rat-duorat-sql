@@ -1,0 +1,15 @@
+artifact_uri: file:///home/aishwaryaprabhat/rat-sql/mlruns/0/5fc2c3199a724df7a99a6c38a1453cbf/artifacts
+end_time: 1627126052172
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+name: ''
+run_id: 5fc2c3199a724df7a99a6c38a1453cbf
+run_uuid: 5fc2c3199a724df7a99a6c38a1453cbf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1627125792894
+status: 4
+tags: []
+user_id: aishwaryaprabhat

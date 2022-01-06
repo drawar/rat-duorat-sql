@@ -1,0 +1,111 @@
+{
+    "data": {
+        "train": {
+            "db_path": "data/spider/database",
+            "name": "spider",
+            "paths": [
+                "data/spider/train_spider.json",
+                "data/spider/train_others.json"
+            ],
+            "tables_paths": [
+                "data/spider/tables.json"
+            ]
+        },
+        "val": {
+            "db_path": "data/spider/database",
+            "name": "spider",
+            "paths": [
+                "data/spider/dev.json"
+            ],
+            "tables_paths": [
+                "data/spider/tables.json"
+            ]
+        }
+    },
+    "log": {
+        "reopen_to_flush": true
+    },
+    "lr_scheduler": {
+        "decay_steps": 8750,
+        "end_lr": 0,
+        "name": "bert_warmup_polynomial_group",
+        "num_warmup_steps": 1250,
+        "power": 0.5,
+        "start_lr": 0.001,
+        "start_lrs": [
+            7.44e-06,
+            1e-05
+        ]
+    },
+    "model": {
+        "decoder": {
+            "desc_attn": "mha",
+            "dropout": 0.20687225956012834,
+            "enc_recurrent_size": 768,
+            "loss_type": "label_smooth",
+            "name": "NL2Code",
+            "recurrent_size": 512,
+            "use_align_loss": true,
+            "use_align_mat": true
+        },
+        "decoder_preproc": {
+            "grammar": {
+                "clause_order": null,
+                "end_with_from": true,
+                "factorize_sketch": 2,
+                "include_literals": false,
+                "infer_from_conditions": true,
+                "name": "spider",
+                "output_from": true,
+                "use_table_pointer": true
+            },
+            "save_path": "data/spider/nl2code,output_from=true,fs=2,emb=bert,cvlink",
+            "use_seq_elem_rules": true
+        },
+        "encoder": {
+            "bert_token_type": true,
+            "bert_version": "distilbert-base-uncased",
+            "name": "spider-bert",
+            "summarize_header": "avg",
+            "update_config": {
+                "cv_link": true,
+                "name": "relational_transformer",
+                "num_heads": 8,
+                "num_layers": 8,
+                "sc_link": true
+            },
+            "use_column_type": false
+        },
+        "encoder_preproc": {
+            "bert_version": "distilbert-base-uncased",
+            "compute_cv_link": true,
+            "compute_sc_link": true,
+            "db_path": "data/spider/database",
+            "fix_issue_16_primary_keys": true,
+            "include_table_name_in_column": false,
+            "save_path": "data/spider/nl2code,output_from=true,fs=2,emb=bert,cvlink"
+        },
+        "name": "EncDec"
+    },
+    "model_name": "bs=2,lr=7.4e-06,bert_lr=1.0e-05,end_lr=0e0,att=1",
+    "optimizer": {
+        "bert_lr": 0,
+        "lr": 0,
+        "name": "bertAdamw"
+    },
+    "train": {
+        "batch_size": 2,
+        "clip_grad": 1,
+        "data_seed": 1,
+        "eval_batch_size": 50,
+        "eval_every_n": 50,
+        "init_seed": 1,
+        "keep_every_n": 10000,
+        "max_steps": 10000,
+        "model_seed": 1,
+        "num_batch_accumulated": 12,
+        "num_eval_items": 50,
+        "report_every_n": 10,
+        "save_every_n": 100
+    }
+}
